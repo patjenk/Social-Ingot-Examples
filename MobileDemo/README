@@ -1,0 +1,27 @@
+Social Ingot API Mobile Demo
+
+Example Installation
+--------------------
+http://examples.socialingot.com/MobileDemo/
+
+Purpose
+-------
+The goal of this example is to demonstrate everything needed to start using Social Ingot's mobile payment solution.
+
+Installation
+------------
+Place the entire contents of this folder into a web accessible directory.
+
+Configuration
+-------------
+All configuration values are located in config.php. You will want to change these values before deploying. 
+
+The Social Ingot API key and secret are the two most important values to set. You can obtain these values at http://socialingot.com by creating an account. Feel free to use the provided values to understand how to interact with the API but DO NOT use these values in a production environment. You will NOT receive credit for any sales generated through this keyset.
+
+The $success_url and $cancel_url variables determine where to direct the user upon a succesisful or failed transaction. 
+
+The $vc and $vc_plural variables indicate the singular and plural name of your virtual currency.
+
+The $uid variable is used for tracking which user completed the transaction. This is typically the user's individual Id in your system.
+
+The $xe variable is the value in USD dollars of your virtual currency. For example, if your virtual currency is pegged to ten US cents then the value of $xe would be "0.10".
