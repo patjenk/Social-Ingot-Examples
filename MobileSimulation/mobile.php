@@ -13,7 +13,7 @@ $item_name = "Simulation";
 $success_url = "http://socialingot.com/";
 $fields = '';
 $search = array();
-$order_by = 'id';
+$order_by = 'country_name';
 $temp = $social_ingot->widgets_mobile_get($item_name, $success_url, $success_url, $fields, $search, $fetch_size, 0, $order_by);
 $price_points = $temp;
 while ($fetch_size == count($temp)) {
@@ -21,20 +21,18 @@ while ($fetch_size == count($temp)) {
   $price_points = array_merge($price_points, $temp);
 }
 ?>
-<table border="1">
+<table class="transactions">
     <tr>
         <th>Country Name</th>
         <th>Sale Amount</th>
         <th>Country Name</th>
-        <th>Click</th>
         <th>Transaction</th>
     </tr>
-<?php foreach ($price_points as $price_point) { ?>
-    <tr>
+<?php for ($x=0; $x<count($price_points); $x++) { $price_point = $price_points[$x]; ?>
+    <tr class="<?php if (0==$x%2) { echo "rowA"; } else { echo "rowB"; } ?>" >
         <td><?php echo $price_point['country_name']; ?></td>
         <td><?php echo $price_point['sale_amount']; ?></td>
         <td><?php echo $price_point['currency_name']; ?></td>
-        <td><a href="<?php echo $price_point['iframe_url'].'&uid='.$uid; ?>" target="_blank">Click</a> 
         <td><a href="#<?php echo $price_point['id']; ?>" onclick="simulate_transaction(<?php echo $price_point['id']; ?>);" >Simulate Transaction</a> 
     </tr>
 <?php } ?>

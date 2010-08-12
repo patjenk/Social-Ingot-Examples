@@ -272,7 +272,7 @@ class SocialIngot {
    * @param string transaction_post_date Desired transaction posting date formatted as Y-m-d H:i:s
    * @param integer widget_id Desired widget Id
    */
-  public function clicks_transaction_postback_post($uid=null, $commission_amount=null, $sale_amount=null, $currency_code=null, $click_date=null, $transaction_date=null, $transaction_post_date=null, $widget_id=null) {
+  public function clicks_transaction_postback_post($uid=null, $commission_amount=null, $sale_amount=null, $currency_code=null, $click_date=null, $transaction_date=null, $transaction_post_date=null, $widget_id=null, $extra_params = array()) {
     $params = array();
     if (null != $uid) {$params['uid']=$uid;}
     if (null != $commission_amount) {$params['commission_amount']=$commission_amount;}
@@ -282,6 +282,10 @@ class SocialIngot {
     if (null != $transaction_date) {$params['transaction_datetime']=$transaction_date;}
     if (null != $transaction_post_date) {$params['transaction_post_date']=$transaction_post_date;}
     if (null != $widget_id) {$params['widget_id']=$widget_id;}
+    foreach ($extra_params as $key=>$val) {
+      if (!isset($params[$key])) { $params[$key] = $val; }
+    }
+    var_dump($params);
     return $this->call_authenticated_post_method('clicks/transaction/postback/', $params);    
   }
 

@@ -10,15 +10,15 @@ require_once("config.php");
 
 $postbacks = $social_ingot->clicks_transaction_postback_get('', array(), 100, 0, '-time');
 ?>
-<table border="1">
+<table class="postbacks">
     <tr>
         <th>URL</th>
         <th>Code</th>
         <th>Response</th>
         <th>Date</th>
     </tr>
-<?php foreach ($postbacks as $postback) { ?>
-    <tr>
+<?php for ($x=0; $x<count($postbacks); $x++) { $postback = $postbacks[$x]; ?>
+    <tr class="<?php if (0==$x%2) { echo "rowA"; } else { echo "rowB"; } ?>" >
         <td><?php echo $postback['postback_url']; ?></td>
         <td><?php echo $postback['response_code']; ?></td>
         <td><?php echo htmlspecialchars($postback['postback_response']); ?></td>

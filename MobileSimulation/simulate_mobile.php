@@ -12,6 +12,9 @@ if (!isset($_POST['mobile_id'])) {
   print "Please provide a mobile id.";
   exit;
 }
+$params = isset($_POST['params'])?$_POST['params']:"";
+$params_array = array();
+parse_str($params, $params_array);
 
 $item_name = "Simulation";
 $success_url = "http://socialingot.com";
@@ -27,7 +30,8 @@ if (!is_array($mobiles) || 1 != count($mobiles)) {
 $click_date = date('Y-m-d H:i:s');
 $transaction_date = $click_date;
 $transaction_post_date = $click_date;
+$widget_id = 206;
 
-$postback_simulation = $social_ingot->clicks_transaction_postback_post($uid, $mobile['commission_amount'], $mobile['sale_amount'], $mobile['currency_code'], $click_date, $transaction_date, $transaction_post_date);
+$postback_simulation = $social_ingot->clicks_transaction_postback_post($uid, $mobile['commission_amount'], $mobile['sale_amount'], $mobile['currency_code'], $click_date, $transaction_date, $transaction_post_date, $widget_id, $params_array);
 
 print json_encode($postback_simulation);
