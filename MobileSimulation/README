@@ -1,0 +1,21 @@
+Social Ingot API Mobile Tranaction Simulation
+
+Example Installation
+--------------------
+http://examples.socialingot.com/MobileSimulation/
+
+Purpose
+-------
+The goal of this example is to provide a tool for generating sample transactions. This tool allows a user to select from any mobile price point available in the Social Ingot API and creates a click, transaction, and postback request for the provided keyset.
+
+Installation
+------------
+Place the entire contents of this folder into a web accessible directory.
+
+Configuration
+-------------
+This example requires no configuration.
+
+Usage
+-----
+This example comes pre-populated with a Social Ingot keyset but any valid keyset will work. You can simulate a mobile transaction by clicking on the "Refresh Mobile Widgets" button and then selecting "Simulate Transaction" for the price point you wish to test. You can also view recent postbacks by clicking on the button labeled "Refresh Postbacks." 

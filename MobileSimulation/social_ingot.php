@@ -285,7 +285,6 @@ class SocialIngot {
     foreach ($extra_params as $key=>$val) {
       if (!isset($params[$key])) { $params[$key] = $val; }
     }
-    var_dump($params);
     return $this->call_authenticated_post_method('clicks/transaction/postback/', $params);    
   }
 
