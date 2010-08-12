@@ -1,0 +1,61 @@
+div.header {
+  width: 100%;
+  text-align: center;
+}
+
+div.content {
+  padding-left: 30px;
+  padding-right: 30px;
+  min-width: 600px;
+}
+
+table {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+table.output {
+  width: 100%;
+}
+
+table.output th {
+  font-size: 25pt;
+}
+
+table.output td.mobile {
+  width: 40%;
+}
+
+table.postbacks, table.transactions {
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 0 none;
+  border-collapse: collapse;
+}
+
+table.postbacks th, table.transactions th {
+  font-size: 10pt;
+  border-top: 1px solid black;
+  border-right: 1px solid #aaaaaa;
+  border-bottom: 1px solid black;
+}
+
+table.postbacks tr, table.transactions tr {
+  border-left: 1px solid black;
+  border-top: 1px solid #aaaaaa;
+  border-right: 1px solid black;
+  padding: 0;
+}
+
+table.postbacks tr.rowA, table.transactions tr.rowA {
+  background-color: #CACACA;
+}
+
+table.postbacks tr.rowB, table.transactions tr.rowB {
+  background-color: #ECECEC;
+}
+
+table.postbacks td, table.transactions td {
+  border-right: 1px solid #aaaaaa;
+  padding: 0;
+}
