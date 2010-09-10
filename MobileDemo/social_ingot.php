@@ -1,17 +1,19 @@
 <?php
 /**
- * Copyright 2009 Social Growth Technologies, Inc
+ * Copyright 2010 Social Growth Technologies, Inc
  *
- * This file is the PHP library for acccessing Social Growth Technologies'
- * monetization API.
+ * This file is the PHP library for acccessing the Social Ingot
+ * monetization API. 
  *
- * For help with tihs library please contact 
+ * For help with this library please contact 
  * patrick@socialgrowthtechnologies.com.
  *
  * More information about the Social Ingot API can be found at 
  * http://developers.socialingot.com/
+ *
+ * For information about the the PHP library please visit:
+ * http://developers.socialingot.com/wiki/PHP
  */ 
-
 class SocialIngot {
   public $api_key;
   public $secret;
@@ -22,7 +24,7 @@ class SocialIngot {
   /**
    * Create a SocialIngot client like this:
    *
-   * $money = new SocialIngot(API_KEY, SECRET);
+   * $social_ingot = new SocialIngot(API_KEY, SECRET);
    *
    * @param api_key                     your developer API key
    * @param secret                      your developer API secret
@@ -36,67 +38,15 @@ class SocialIngot {
   }
 
   /**
+   * Creates and returns an keyset for accessing the Social Ingot API. 
    *
-   */
-  public function admin_client_get($fields='', $search=array(), $lim = 100, $off = 0, $order_by = '') {
-    $params = array('fields'=>$fields, 'lim' => $lim, 'off' => $off, 'order_by' => $order_by);
-    foreach ($search as $key=>$val) {
-      $params[$key] = $val;
-    }
-    return $this->call_unauthenticated_get_method('admin/client/', $params);
-  }
-
-  /**
-   *
-   */
-  public function admin_client_post($name, $email, $password = '', $website = '', $notes= '') {
-    $params = array();
-    $params['name'] = $name;
-    $params['email'] = $email;
-    $params['password'] = $password;
-    if ($website) {
-      $params['website'] = $website;
-    }
-    if ($notes) {
-      $params['notes'] = $notes;
-    }
-    return $this->call_authenticated_post_method('admin/client/', $params);
-  }
-
-  /**
-   *
-   */
-  public function admin_client_update($id, $email = '', $website = '', $notes = '') {
-    $params = array();
-    $params['id'] = $id;
-    if ($email && '' != $email) {
-      $params['email'] = $email;
-    }
-    if ($website && '' != $website) {
-      $params['website'] = $website;
-    }
-    if ($notes && '' != $notes) {
-      $params['notes'] = $notes;
-    }
-    return $this->call_authenticated_post_method('admin/client/update/', $params);
-  }
-
-  public function admin_keysets_delete($keyset_id) {
-    $params = array('keyset_id' => $keyset_id);
-    return $this->call_authenticated_delete_method('admin/keysets/', $params);
-  }
-
-  public function admin_keysets_get($fields = '', $search = array(), $lim = 100, $off = 0, $order_by = '') {
-    print 'hihihihhhiii';
-    $params = array('fields'=>$fields, 'lim' => $lim, 'off' => $off, 'order_by' => $order_by);
-    foreach ($search as $key=>$val) {
-      $params[$key] = $val;
-    }
-    return $this->call_unauthenticated_get_method('admin/keysets/', $params);
-  }
-
-  /**
-   *
+   * @param string $fields A comma seperated list of fields to return.
+   * @param array $search An array of key value search values to send.
+   * @param int $lim The number of results to return,. Default is 50 and 
+   *                 maximum is 100.
+   * @param int $off The result offset. This is the number, starting from 0,
+   *                 to start returning data. The default is 0.
+   * @param string $order_by A string indicating how to order the results.
    */
   public function admin_keysets_post($client_id, $postback_currency, $description = '', $transaction_postback_url = null) {
     $params = array('client_id' => $client_id, 'postback_currency' => $postback_currency);
@@ -108,7 +58,6 @@ class SocialIngot {
     }
     return $this->call_authenticated_post_method('admin/keysets/', $params);
   } 
-
   public function admin_keysets_statistics_hoursnapshot_get($fields = '', $search = array(), $lim = 100, $off = 0, $order_by = '') {
     $params = array('fields'=>$fields, 'lim' => $lim, 'off' => $off, 'order_by' => $order_by);
     foreach ($search as $key=>$val) {
@@ -133,18 +82,16 @@ class SocialIngot {
     return $this->call_unauthenticated_get_method('admin/keysets/statistics/snapshot/', $params);
   }
 
-  public function admin_keysets_update($keyset_id, $client_id = null, $description = null, $revenue_share = null, $transaction_postback = null, $postback_currency = null) {
-    $params = array('id' => $keyset_id);
-    if (null != $client_id) { $params['client_id'] = $client_id; }
-    if (null != $description) { $params['description'] = $description; }
-    if (null != $revenue_share) { $params['revenue_share'] = $revenue_share; }
-    if (null != $transaction_postback) { $params['transaction_postback'] = $transaction_postback; }
-    if (null != $postback_currency) { $params['postback_currency'] = $postback_currency; }
-    return $this->call_authenticated_post_method('admin/keysets/update/', $params);
-  } 
-
   /**
+   * Returns the list of categories.
    *
+   * @param string $fields A comma seperated list of fields to return.
+   * @param array $search An array of key value search values to send.
+   * @param int $lim The number of results to return,. Default is 50 and 
+   *                 maximum is 100.
+   * @param int $off The result offset. This is the number, starting from 0,
+   *                 to start returning data. The default is 0.
+   * @param string $order_by A string indicating how to order the results.
    */
   public function categories_category_get($fields='', $search=array(), $lim = 100, $off = 0, $order_by = '') {
     $params = array('fields'=>$fields, 'lim' => $lim, 'off' => $off, 'order_by' => $order_by);
@@ -155,7 +102,15 @@ class SocialIngot {
   }
 
   /**
+   * Returns the list of subcategories. 
    *
+   * @param string $fields A comma seperated list of fields to return.
+   * @param array $search An array of key value search values to send.
+   * @param int $lim The number of results to return,. Default is 50 and 
+   *                 maximum is 100.
+   * @param int $off The result offset. This is the number, starting from 0,
+   *                 to start returning data. The default is 0.
+   * @param string $order_by A string indicating how to order the results.
    */
   public function categories_subcategory_get($fields='', $search=array(), $lim = 100, $off = 0, $order_by = '') {
     $params = array('fields'=>$fields, 'lim' => $lim, 'off' => $off, 'order_by' => $order_by);
@@ -187,6 +142,17 @@ class SocialIngot {
     return $this->call_authenticated_get_method('clicks/impression/', $params);
   }
 
+  /**
+   * Returns a record of a mobile payment iframe page load. 
+   * 
+   * @param string $fields A comma seperated list of fields to return.
+   * @param array $search An array of key value search values to send.
+   * @param int $lim The number of results to return,. Default is 50 and 
+   *                 maximum is 100.
+   * @param int $off The result offset. This is the number, starting from 0,
+   *                 to start returning data. The default is 0.
+   * @param string $order_by A string indicating how to order the results.
+   */
   public function clicks_mobileclick_get($fields = '', $search = array(), $lim = 100, $off = 0, $order_by='') {
     $params = array('fields'=>$fields, 'lim' => $lim, 'off' => $off, 'order_by' => $order_by);
     foreach ($search as $key=>$val) {
@@ -273,12 +239,53 @@ class SocialIngot {
     return $this->call_authenticated_get_method('clicks/ppclick/', $params);
   }
 
-  public function clicks_transactions_postback_get($fields='', $search=array(), $lim=100, $off=0, $order_by='') {
+  /**
+   * Returns an array of postings made to the postback URL for the current keyset.
+   *
+   * @param string $fields A comma seperated list of fields to return.
+   * @param array $search An array of key value search values to send.
+   * @param int $lim The number of results to return,. Default is 50 and 
+   *                 maximum is 100.
+   * @param int $off The result offset. This is the number, starting from 0,
+   *                 to start returning data. The default is 0.
+   * @param string $order_by A string indicating how to order the results.
+   */
+  public function clicks_transaction_postback_get($fields='', $search=array(), $lim=100, $off=0, $order_by='') {
     $params = array('fields'=>$fields, 'lim' => $lim, 'off' => $off, 'order_by' => $order_by);
     foreach ($search as $key=>$val) {
       $params[$key] = $val;
     }
-    return $this->call_authenticated_get_method('clicks/transaction/postback/get/', $params);
+    return $this->call_authenticated_get_method('clicks/transaction/postback/', $params);
+  }
+
+  /**
+   * Simulates a postback on behalf of the current keyset with the provided 
+   * data. This creates a click and transaction in the database that will have 
+   * a $0 sale and $0 commission amount.
+   *
+   * @param string uid Desired user Id
+   * @param float commission_amount Desired commission amount
+   * @param float sale_amount Desired sale amount
+   * @param string currency_code Desired three letter currency code.  
+   * @param string click_date Desired click date formatted as Y-m-d H:i:s
+   * @param string transaction_date Desired transaction date formatted as Y-m-d H:i:s
+   * @param string transaction_post_date Desired transaction posting date formatted as Y-m-d H:i:s
+   * @param integer widget_id Desired widget Id
+   */
+  public function clicks_transaction_postback_post($uid=null, $commission_amount=null, $sale_amount=null, $currency_code=null, $click_date=null, $transaction_date=null, $transaction_post_date=null, $widget_id=null, $extra_params = array()) {
+    $params = array();
+    if (null != $uid) {$params['uid']=$uid;}
+    if (null != $commission_amount) {$params['commission_amount']=$commission_amount;}
+    if (null != $sale_amount) {$params['sale_amount']=$sale_amount;}
+    if (null != $currency_code) {$params['currency_code']=$currency_code;}
+    if (null != $click_date) {$params['click_date']=$click_date;}
+    if (null != $transaction_date) {$params['transaction_datetime']=$transaction_date;}
+    if (null != $transaction_post_date) {$params['transaction_post_date']=$transaction_post_date;}
+    if (null != $widget_id) {$params['widget_id']=$widget_id;}
+    foreach ($extra_params as $key=>$val) {
+      if (!isset($params[$key])) { $params[$key] = $val; }
+    }
+    return $this->call_authenticated_post_method('clicks/transaction/postback/', $params);    
   }
 
   /**
@@ -337,25 +344,43 @@ class SocialIngot {
    * the new transaction id if successful.
    *
    * @param int $click_id the id of the click which originated this purchase.
-   * @param float $commission_amount the revenue generated by this transaction.
-   * @param float $currency the currency the commission is.
-   * @param string $item_name the name of the item.
+   * @param float $full_commission_amount the revenue generated by this transaction.
+   * @param float $currency_code The two letter code of transaction currency.
    * @param float $sale_amount the total amount an end user spent on this transaction.
-   * @param string $transaction_time the time of the purchase formatted as YYYY-MM-DD HH:MM:ss
+   * @param string $transaction_date the time of the purchase formatted as YYYY-MM-DD
+   * @param string $transaction_time the time of the purchase formatted as HH:MM:ss
+   * @param string $item_name the name of the item.
    * @param array $other_parameters any other parameters you want stored with this transaction.
    */
-  public function clicks_widgettransaction_post($click_id, $commission_amount, $currency, $item_name='', $sale_amount=0, $transaction_time='', $other_parameters = array())
-  {
+  public function clicks_widgettransaction_post($click_id, $full_commission_amount, $currency_code, $sale_amount=null, $transaction_date=null, $transaction_time=null, $item_name=null, $other_parameters=array()) {
     $params = array('click_id'=>$click_id, 
-                    'commission_amount'=>$commission_amount, 
-                    'currency'=>$currency, 
-                    'item_name'=>$item_name, 
-                    'sale_amount'=>$sale_amount,
-                    'transaction_time'=>$transaction_time);
+                    'full_commission_amount'=>$full_commission_amount, 
+                    'currency_code'=>$currency_code);
+    if (null != $sale_amount) { $params['sale_amount'] = $sale_amount; };
+    if (null != $transaction_date) { $params['transaction_date'] = $transaction_date; };
+    if (null != $transaction_time) { $params['transaction_time'] = $transaction_time; };
+    if (null != $item_name) { $params['item_name'] = $item_name; };
     foreach ($other_parameters as $key=>$val) {
       $params[$key] = $val;
     }
     return $this->call_authenticated_post_method('clicks/widgettransaction/', $params);
+  } 
+
+  /**
+   * Query the Social Ingot API to gather deal information.
+   * 
+   * @param string $fields - a comma seperated list of fields to return.
+   * @param array $search - an array of key,value pairs to search by.
+   * @param int $lim - The number of results to return.
+   * @param int $off - the place to start returning results from.
+   * @param string $order_by - a string to order by.
+   */
+  public function deals_get($fields='', $search=array(), $lim=100, $off=0, $order_by='') {
+    $params = array('fields'=>$fields, 'lim' => $lim, 'off' => $off, 'order_by' => $order_by);
+    foreach ($search as $key=>$val) {
+      $params[$key] = $val;
+    }
+    return $this->call_authenticated_get_method('deals/', $params);
   }
 
   /**
@@ -379,7 +404,11 @@ class SocialIngot {
    * Returns an array representing the widget with $widget_id. If no such
    * widget exists an exception will be thrown.
    *
-   * @param int $widget_id The id of the widget to fetch.
+   * @param string $fields - a comma seperated list of fields to return.
+   * @param array $search - an array of key,value pairs to search by.
+   * @param int $lim - The number of results to return.
+   * @param int $off - the place to start returning results from.
+   * @param string $order_by - a string to order by.
    */
   public function widgets_widget_get($fields='', $search=array(), $lim = 100, $off = 0, $order_by = '') {
     $params = array('fields'=>$fields, 'lim' => $lim, 'off' => $off, 'order_by' => $order_by);
@@ -390,7 +419,13 @@ class SocialIngot {
   }
 
   /**
-   *
+   * Returns an array of available widget terms. 
+   * 
+   * @param string $fields - a comma seperated list of fields to return.
+   * @param array $search - an array of key,value pairs to search by.
+   * @param int $lim - The number of results to return.
+   * @param int $off - the place to start returning results from.
+   * @param string $order_by - a string to order by.
    */
   public function widgets_widgetterm_get($fields='', $search=array(), $lim = 100, $off = 0, $order_by = '') {
     $params = array('fields'=>$fields, 'lim' => $lim, 'off' => $off, 'order_by' => $order_by);
@@ -401,7 +436,13 @@ class SocialIngot {
   }
 
   /**
+   * Returns a list of widget types. 
    *
+   * @param string $fields - a comma seperated list of fields to return.
+   * @param array $search - an array of key,value pairs to search by.
+   * @param int $lim - The number of results to return.
+   * @param int $off - the place to start returning results from.
+   * @param string $order_by - a string to order by.
    */
   public function widgets_widgettype_get($fields='', $search=array(), $lim = 100, $off = 0, $order_by = '') {
     $params = array('fields'=>$fields, 'lim' => $lim, 'off' => $off, 'order_by' => $order_by);
@@ -652,7 +693,7 @@ class SocialIngot {
   private function finalize_params($method, &$params) {
     $this->add_standard_params($method, $params);
     // we need to do this before signing the params
-    //$this->convert_array_values_to_json($params);
+    $this->convert_array_values_to_json($params);
     $params['sig'] = SocialIngot::generate_sig($params, $this->secret);
   }
 

@@ -10,7 +10,11 @@ The goal of this example is to demonstrate everything needed to start using Soci
 
 Installation
 ------------
-Place the entire contents of this folder into a web accessible directory.
+1.) Sign up as a new user at http://socialingot.com/.
+2.) Create a new keyset. 
+3.) Create a postback script. Please read the documentation for our postback URL available at http://developers.socialingot.com/wiki/Postback_URL.
+4.) Alert your account manager so they can set your agreed upon revenue share.
+5.) Place the entire contents of this folder into a web accessible directory on your server.
 
 Configuration
 -------------
@@ -18,10 +22,16 @@ All configuration values are located in config.php. You will want to change thes
 
 The Social Ingot API key and secret are the two most important values to set. You can obtain these values at http://socialingot.com by creating an account. Feel free to use the provided values to understand how to interact with the API but DO NOT use these values in a production environment. You will NOT receive credit for any sales generated through this keyset.
 
-The $success_url and $cancel_url variables determine where to direct the user upon a succesisful or failed transaction. 
+The $success_url and $cancel_url variables determine where to direct the user upon a successful or failed transaction. 
 
 The $vc and $vc_plural variables indicate the singular and plural name of your virtual currency.
 
 The $uid variable is used for tracking which user completed the transaction. This is typically the user's individual Id in your system.
 
 The $xe variable is the value in USD dollars of your virtual currency. For example, if your virtual currency is pegged to ten US cents then the value of $xe would be "0.10".
+
+Customized Integration
+----------------------
+1. Get the latest version of our library here http://developers.socialingot.com/wiki/Client_Libraries. Optionally you can use the social_ingot.php file in the demo.
+2. Use our API call to access mobile widgets. Read all about the API call used to access mobile widgets and available options at http://developers.socialingot.com/wiki/Widgets.mobile.get. 
+3. Create a postback script. The information about our postback url is available at http://developers.socialingot.com/wiki/Postback_URL.
